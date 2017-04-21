@@ -1,0 +1,42 @@
+<head>
+<meta charset="UTF-8">
+<title>测试用例</title>
+</head>
+<a href="/testlink/">回首页</a><br>
+{% autoescape off %}
+{% for i in test_case_list %}
+<b>name:</b><br>
+<font color="green">
+{{ i.case_name }}
+</font>
+<br>
+<b>step:</b><br>
+<font color="blue">
+{{ i.case_step|linebreaksbr }}<br>
+{{ i.content }}<br>
+
+</font>
+<b>except result:</b><br>
+<font color="grey">
+{{ i.case_except|linebreaksbr }}<br>
+</font>
+
+<br>
+
+
+<button onclick="window.location.href=('/admin/Ts_app/testlinkcase/{{ i.id }}/change')">
+
+
+edit case
+</button>
+
+
+
+{% endfor %}
+
+
+
+
+{% endautoescape %}
+
+{% include 'Ts_app/blogcomment.html' %}

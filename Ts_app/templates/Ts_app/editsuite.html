@@ -1,0 +1,12 @@
+
+<form method='POST' enctype="multipart/form-data">
+{% csrf_token %}
+{{ form_obj_3 }}
+<input type='submit' name="add_suite" value="add_suite"></input>
+</form>
+<br>
+<br>
+<br>
+<br>
+{% load tree_list %}
+{{ test_suite_list|li_tree }}

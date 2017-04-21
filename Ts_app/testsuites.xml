@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Program update" >
+<node_order><![CDATA[0]]></node_order>
+<details><![CDATA[]]> 
+</details><testsuite name="PSI/SI version monitor" >
+<node_order><![CDATA[0]]></node_order>
+<details><![CDATA[]]> 
+</details><testsuite name="PMT version monitor" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[]]> 
+</details>
+<testcase internalid="108970" name="PMT version change trigger condition">
+	<node_order><![CDATA[0]]></node_order>
+	<externalid><![CDATA[1276]]></externalid>
+	<summary><![CDATA[<p>1.&nbsp;<span style="font-size: 12px;">只有在信息变更时才弹出，而不是每次切台都弹出。</span></p>
+<p style="font-size: 12px;">2.只有当PMT_pid一致，service_id一致，PMT_version发生变化，且对应的是Audio_pid/Audio_type,Video_pid/Video_type,language发生了变化，才会触发更新。</p>]]></summary>
+	<steps><![CDATA[<p>1.<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204engchangetoPMT13_audiopid201eng_audiopid202chi.ts</span></p>
+<p>2.\\10.209.161.56\Stream\Others\file_ChinaSat6B_3796H6930_20120209.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.播放码流1，要弹出提示信息&ldquo;PMT版本变化&rdquo;</p>
+<p>2.播放码流2，在几个节目之间切台，不会弹出&ldquo;PMT版本变更&rdquo;</p>
+<p>&nbsp;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108972" name="PMT版本号变更的准确性测试">
+	<node_order><![CDATA[1]]></node_order>
+	<externalid><![CDATA[1277]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;</p>
+<p><span style="font-size: larger;">1.<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv5_audiotype3_audiopid1921_khmchangetoPMTv5_audiotype4_audiopid1921_khm.ts</span></span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;</p>
+<p><span style="font-size: larger;">播放码流过程中，<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">因为PMT版本号不变，在播放过程中，虽然audiopid/audiotype 或videopid/videotype发生变化，但不会弹出PMT变更信息。</span></span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108974" name="audio_pid change(current audio_pid still exist)">
+	<node_order><![CDATA[2]]></node_order>
+	<externalid><![CDATA[1278]]></externalid>
+	<summary><![CDATA[<p>&nbsp;//bjfile02/BJShare/Public/TS/file_Helshinki_562Mhz_1.trp</p>
+<p>这路流里的YLE24节目播放过程中（约在11分左右时）音轨会有变化。</p>
+<p>for jinya project,只要测试当音轨发生变化后，因为当前audio_pid仍然存在，直接播放，不会弹出PMT版本更新提示，audio_pid不会变化。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.enter muti_audio window,select one audio_pid,stay in the window,waiting audio_pid change,but current audio_pid still exist.</p>
+<p>2.enter muti_audio window,select one audio_pid,exit.waiting audio_pid change,but current audio_pid still exist.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.for step 1,audio_pid update when audio_pid change.current playing audio_pid don't change,cursor and tick display correctly(cursor can only focus on audio track).no message popup.</p>
+<p>2.for step 2,current playing audio_pid don't change when audio_pid update.enter muti_audio window,audio_pid update,cursor and tick display correctly(cursor can only focus on audio track).no message popup.</p>
+<p>3.when audio_pid update,muti_audio work normally(audio track and sound track can work normally).</p>
+<p>4.enter inforbanner2 and editchannel window,audio_pid update at the same time.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108976" name="audio_pid change(current audio_pid don't exist),play first audio.">
+	<node_order><![CDATA[3]]></node_order>
+	<externalid><![CDATA[1279]]></externalid>
+	<summary><![CDATA[<p>&nbsp;<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">1.play TS:</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204eng_.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.change TS:</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMT11_audiopid201khm_audiopid202chi.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.可以直接播放下面的码流，不用换流。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204engchangetoPMT13_audiopid201eng_audiopid202chi.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">for jinya project，只需要check当PMT发生变化后，播放audiopid为202。</p>]]></summary>
+	<steps><![CDATA[<p>1.enter muti_audio window,select one audio_pid,stay in the window,waiting audio_pid change,current audio_pid don't exist when audio_pid update.</p>
+<p>2.enter muti_audio window,select one audio_pid,exit.waiting audio_pid change,current audio_pid don't exist when audio_pid update.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.for step 1, when audio_pid change,popup PMT information update message.audio_pid update.do first/second audio adapt,play first audio if have.cursor and tick display correctly(cursor can only focus on audio track).</p>
+<p>2.for step 2,when audio_pid change,popup PMT information update message.do first/second audio adapt,play first audio if have.enter muti_audio window,audio_pid update,cursor and tick display correctly(cursor can only focus on audio track).</p>
+<p>3.when audio_pid update,muti_audio work normally(audio track and sound track can work normally).</p>
+<p>4.enter inforbanner2 and editchannel window,audio_pid update at the same time.</p>
+<p>bug:</p>
+<p><a href="http://jira:65533/browse/APP-2408">http://jira:65533/browse/APP-2408</a></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108978" name="audio_pid change(current audio_pid don't exist),play second audio.">
+	<node_order><![CDATA[4]]></node_order>
+	<externalid><![CDATA[1280]]></externalid>
+	<summary><![CDATA[<p>1.play TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">PMTv0_audiopid203fin_audiopid204eng_.ts</span></p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMT12_audiopid201khm_audiopid202eng.ts(NIT版本号变化)</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.可以直接播放下面的码流，不用换流。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204engchangetoPMT12_audiopid201khm_audiopid202eng.ts</p>
+<p>for jinya project，只需要测试当PMT发生变化后，播放的audiopid为202.</p>]]></summary>
+	<steps><![CDATA[<p>1.enter muti_audio window,select one audio_pid,stay in the window,waiting audio_pid change,current audio_pid don't exist when audio_pid update.</p>
+<p>2.enter muti_audio window,select one audio_pid,exit.waiting audio_pid change,current audio_pid don't exist when audio_pid update.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.for step 1, when audio_pid change,popup PMT information update message.audio_pid update.do first/second audio adapt,play second audio if first audio don't have but second audio have.cursor and tick display correctly(cursor can only focus on audio track).</p>
+<p>2.for step 2,when audio_pid change,popup PMT information update message.do first/second audio adapt.play second audio if first audio don't have but second audio have.enter muti_audio window,audio_pid update,cursor and tick display correctly(cursor can only focus on audio track).</p>
+<p>3.when audio_pid update,muti_audio work normally(audio track and sound track can work normally).</p>
+<p>4.enter inforbanner2 and editchannel window,audio_pid update at the same time.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108980" name="audio_pid change(current audio_pid don't exist),play default audio.">
+	<node_order><![CDATA[5]]></node_order>
+	<externalid><![CDATA[1281]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.play TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">PMTv0_audiopid203fin_audiopid204eng_.ts</span></p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMT14_audiopid201khm_audiopid202fin.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.可以直接播放下面的码流，不用换流。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204engchangetoPMT14_audiopid201khm_audiopid202fin.ts</p>
+<p>和<br />
+\\10.209.157.77\10.209.161.56_Stream\ASpecialTestTS\PMTversionchange\PMTv0_audiopid203fin_audiopid204engchangetoPMT12_audiopid201khm_audiopid202eng.ts<br />
+此码流既有PMT也有NIT变更</p>
+<p>测试过程中会有PMT和NIT变更</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.popup program infor change message,audio pid update.audio pid don't exist, play &nbsp;default audio.</p>
+<p>&nbsp;2.play NIT&amp;PMT change stream, can trigger both&nbsp;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108982" name="audio_type change（需要重做流）">
+	<node_order><![CDATA[6]]></node_order>
+	<externalid><![CDATA[1282]]></externalid>
+	<summary><![CDATA[<p>TS1: \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTver1_audiotype3_videopid100_audiopid201.ts</p>
+<p>TS2: \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTver2_audiotype81_videopid100_audiopid201.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">&nbsp;</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.使用码流卡播放码流TS1，搜索该码流频点</p>
+<p>2.播放该码流节目</p>
+<p>3.码流卡更换码流TS2</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.PMT版本发生变化时，能够弹出提示信息</p>
+<p>message PMT information popup when audio_type update.</p>
+<p>2.当前节目的音视频播放正常</p>
+<p>current program audio and video can output normally.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108984" name="video_pid change">
+	<node_order><![CDATA[7]]></node_order>
+	<externalid><![CDATA[1283]]></externalid>
+	<summary><![CDATA[<p>TS1: \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100.ts</p>
+<p>TS2:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv3_videotype1_videopid200.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.可以直接播放下面的码流，不用换流。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100changetoPMTv3_videotype1_vdeopid200.ts</p>]]></summary>
+	<steps><![CDATA[<p>1.使用码流卡播放码流TS1，搜素该码流卡频点</p>
+<p>2.播放码流TS1中的节目</p>
+<p>3.码流卡更换码流TS2</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.弹出提示信息&ldquo;PMT 信息更新&rdquo;</p>
+<p>message PMT information update popup when video_pid update.</p>
+<p>2.当前播放的音视频正常</p>
+<p>current program video and audio can output normally.</p>
+<p>3.进入infobar2窗口，video PID更新正确（video ID为512）</p>
+<p>enter inforbanner2 and editchannel,video_pid update at the same time.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108986" name="video_type change">
+	<node_order><![CDATA[8]]></node_order>
+	<externalid><![CDATA[1284]]></externalid>
+	<summary><![CDATA[<p>TS1:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100.ts</p>
+<p>TS2 : \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv2_videotype2_videopid100.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.可以直接播放下面的码流，不用换流。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100changetoPMTv2_videotype2_videopid100.ts</p>]]></summary>
+	<steps><![CDATA[<p>1.用码流卡播放码流TS1，搜索该码流卡的频点</p>
+<p>2.播放码流TS1中的节目</p>
+<p>3.码流卡更换码流TS2</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.码流卡播放码流TS2时，弹出提示信息</p>
+<p>message PMT information update popup when video_type update.</p>
+<p>2.节目的音视频播放正常</p>
+<p>current program video and audio can output normally.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108988" name="PMT version change when power on">
+	<node_order><![CDATA[9]]></node_order>
+	<externalid><![CDATA[1285]]></externalid>
+	<summary><![CDATA[<p>&nbsp;</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">TS1:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">TS2 : \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv2_videotype2_videopid100.ts</p>
+<p>&nbsp;</p>]]></summary>
+	<steps><![CDATA[<p>1.使用码流卡播放码流TS1，搜索该码流卡的频点</p>
+<p>2.播放TS1中的节目</p>
+<p>3.断电</p>
+<p>4.码流卡播放码流TS2</p>
+<p>5.上电重启STB</p>
+<p>6.在以下场景下，check在 以下窗口中，弹出提示信息是否正常</p>
+<p>power off,change TS,PMT version changed.</p>
+<ul>
+    <li>audio_pid change</li>
+    <li>video_pid change</li>
+    <li>audio_type change</li>
+    <li>video_type change</li>
+    <li>teletext update</li>
+    <li>subtitle update</li>
+    <li>language update</li>
+    <li>CA update</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;PMT version changed when power on,system can response correctly.</p>
+<p>对于GLLJ项目，开机弹出PMT更新提示，5秒后退出主菜单到全屏。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108990" name="language update">
+	<node_order><![CDATA[10]]></node_order>
+	<externalid><![CDATA[1286]]></externalid>
+	<summary><![CDATA[<p>TS1:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMT11_audiopid201khm_audiopid202chi.ts</p>
+<p>TS2:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMT12_audiopid201khm_audiopid202eng.ts</p>
+<p>音轨发生变化的节目是CCTV-1</p>]]></summary>
+	<steps><![CDATA[<p>1.在音轨窗口中，等待音轨的更新</p>
+<p>in multi_audio window,waiting language update.</p>
+<p>2.在TV Screen窗口中，等待音轨的更新</p>
+<p>in TVScreen,waiting language update.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.对于步骤1，当音轨语言发生变化时，音轨窗口正确更新，不会弹出提示信息</p>
+<p>for step 1,multi_audio window refresh when language update.no message popup.</p>
+<p>2.对于步骤2，不会弹出提示信息，进入音轨窗口后，音轨语言进行正确更新</p>
+<p>for step 2,no message popup when language update,enter multi_audio window,refresh.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108992" name="CA update">
+	<node_order><![CDATA[13]]></node_order>
+	<externalid><![CDATA[1287]]></externalid>
+	<summary><![CDATA[<p>&nbsp;TS:\\10.209.161.56\Stream\TEO4EPG 4天.ts</p>
+<p>该码流中除了TV Polonia，Balticum，其余几个节目都为加扰节目</p>
+<div>&nbsp;</div>]]></summary>
+	<steps><![CDATA[<p>1.播放实时信号节目</p>
+<p>2.切换到码流中加扰</p>
+<p>play no scrambled TS,change to scrambled when playing.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.能够弹出加扰提示信息</p>
+<p>popup scrambled message.</p>
+<p>2.在infobar1，EPG，quick list，editchannel窗口中，加扰标志显示在节目上</p>
+<p>the program add scrambled mark in quicklist and editchannel.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108994" name="message can popup as long as background has program play">
+	<node_order><![CDATA[14]]></node_order>
+	<externalid><![CDATA[1288]]></externalid>
+	<summary><![CDATA[<p>&nbsp;<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">TS1:\\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv1_videotype1_videopid100.ts</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">TS2 : \\10.209.161.56\Stream\ASpecialTestTS\PMTversionchange\PMTv2_videotype2_videopid100.ts</p>]]></summary>
+	<steps><![CDATA[<p>1.用码流卡播放TS1，搜索该码流卡的频点</p>
+<p>2.播放该TS1中的节目</p>
+<p>3.用该码流卡播放TS2，在以下场景中，check提示信息的弹出</p>
+<p>&nbsp;check message popup in following status:</p>
+<ul>
+    <li>TVScreen</li>
+    <li>muti_audio</li>
+    <li>quicklist</li>
+    <li>epg</li>
+    <li>mainmenu</li>
+    <li>editchannel</li>
+</ul>
+<p>在以下窗口中，不会弹出提示信息</p>
+<p>except following status:</p>
+<ul>
+    <li>channel scan</li>
+    <li>factory reset</li>
+    <li>delete all</li>
+    <li>locked status</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.只要背景中能够播放视频，提示信息就能够弹出</p>
+<p>message can popup as long as background has program play</p>
+<p>2.PMT提示信息不能影响EPG功能</p>
+<p>PMT message can't impact EPG function.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108996" name="PMT version change in weak signal">
+	<node_order><![CDATA[15]]></node_order>
+	<externalid><![CDATA[1289]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.弱信号下（播放的节目有一些马赛克），PMT版本发生变化</p>
+<p>1.in weak signal(there are lot of masic),PMT version changed.</p>
+<ul>
+    <li>audio_pid change</li>
+    <li>video_pid change</li>
+    <li>audio_type change</li>
+    <li>video_type change</li>
+    <li>teletext update</li>
+    <li>subtitle update</li>
+    <li>language update</li>
+    <li>CA update</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>在弱信号下，PMT版本发生变化正常，系统响应正常&nbsp;</p>
+<p>PMT version changed in weak signal,system can response correctly.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="108998" name="PMT version change block key">
+	<node_order><![CDATA[16]]></node_order>
+	<externalid><![CDATA[1290]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;当PMT发生变更，需要重新加载音视频时，按键。</p>]]></steps>
+	<expectedresults><![CDATA[<p>PMT发生变更，消息弹出时，除power键，block所有按键。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109000" name="teletext update">
+	<node_order><![CDATA[17]]></node_order>
+	<externalid><![CDATA[1291]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[]]></steps>
+	<expectedresults><![CDATA[]]></expectedresults>
+</testcase>
+
+<testcase internalid="109002" name="subtitle update">
+	<node_order><![CDATA[18]]></node_order>
+	<externalid><![CDATA[1292]]></externalid>
+	<summary><![CDATA[<p>&nbsp;\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>]]></summary>
+	<steps><![CDATA[]]></steps>
+	<expectedresults><![CDATA[]]></expectedresults>
+</testcase>
+
+<testcase internalid="109004" name="swith between programs that have same pmt_pid">
+	<node_order><![CDATA[19]]></node_order>
+	<externalid><![CDATA[1293]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.TS1：//bjfile02/BJShare/Public/TS/antares_test_stream/Video_test/file_NTSC_QC_1_03_NTSC_16_9.trp</p>
+<p>2.TS2：//bjfile02/BJShare/Public/TS/file_Helshinki_562Mhz_1.trp</p>
+<p>节目YLETV1 和节目Mosaic Service具有相同的PMT_PID=0x100 &nbsp; &nbsp; &nbsp;</p>
+<p>program YLETV1 and program Mosaic service have same pmt_pid=100.</p>
+<p>3.在这两个节目之间进行Recall</p>
+<p>3.recall between this two programs.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.Recall 功能正常，不能弹出PMT更新提示信息</p>
+<p>&nbsp;recall switch normally.don't popup PMT update information.</p>
+<p>http://jira:65533/browse/APP-3352</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109006" name="在列表界面等待PMT版本号变化">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1294]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1. 在电视节目列表/电视节目管理列表 等待PMT版本号变化</p>
+<p>2. 在EPG界面（光标在电视节目以及光标节目上），等待PMT版本号变化</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;发生PMT版本号变化后，节目列表显示正常</p>]]></expectedresults>
+</testcase>
+</testsuite><testsuite name="NIT monitor by networkID" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[]]> 
+</details>
+<testcase internalid="109009" name="强制更新">
+	<node_order><![CDATA[0]]></node_order>
+	<externalid><![CDATA[1295]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1. 检测到符合条件的升级信息，如：</p>
+<p>&nbsp;<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">1)\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">play TS with 666000 frequency.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">autoscan 666000KHz.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2)change TS:</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. 检测到符合条件的升级信息后，强制进行搜索</p>
+<p>Note：搜索的方式符合spec要求</p>
+<p>桂林漓江项目要求进行自动搜索（即自动搜主频点）</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109011" name="Auto scan trigger NIT version change(with delete and notice check)">
+	<node_order><![CDATA[1]]></node_order>
+	<externalid><![CDATA[1296]]></externalid>
+	<summary><![CDATA[<p>&nbsp;<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">&nbsp;对于GLLJ项目，自动搜索为主频点的自动搜索，第一主频点和第二主频点都会解析并保存NITversion，删除逻辑为全删。具体请参考自动搜索逻辑。自动搜索范围：700MHz-800MHz</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NIT_V1_ID2_add722and762.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NIT_V3_ID2_add722and762and746.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">对thinewtec项目 ：</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">触发搜索之后如果没有搜索到任何节目，则继续弹出NIT版本号变化提示框；</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">NIT搜索是否删除旧节目跟着scan的自动搜索逻辑走。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">对yangtze项目：</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">因为自动搜索的逻辑为不删除旧节目，所以NIT版本变更搜索也不删除旧节目。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">触发搜索之后，用户点否，重新开机后，也继续弹出NIT版本号变化提示框，不会强制搜索；</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp; 1. 检测到符合条件的升级信息，如：</p>
+<p>&nbsp;<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">1)\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">play TS with 666000 frequency.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">autoscan 666000KHz.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2)change TS:</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3）选择更新</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1. 弹出NIT版本号变化提示信息</p>
+<p>2. 用户可以选择现在是否进行搜索</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">3. 用户确认更新后，开始自动搜索，自动搜索方式根据项目和设置情况有不同。</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">说明：</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">对于GLLJ项目，NIT强制搜索为主频点的自动搜索，先执行第一主频点的自动搜索，如果没有搜到节目，再执行第二主频点的自动搜索。<span style="margin: 0px; padding: 0px; font-size: 12px;">删除逻辑为全删。具体请参考自动搜索逻辑。</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">4. 搜索过程中提示信息正确。（Newland项目提示&ldquo;节目更新中，请勿断电！&rdquo;，Thinewtec项目提示搜索进度）</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">5、frequency list correctly,program can be searched correctly.</p>
+<p>&nbsp;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109013" name="搜索过程中提示信息(duplicated with 4865)">
+	<node_order><![CDATA[2]]></node_order>
+	<externalid><![CDATA[1297]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1. 检测到符合条件的升级信息后</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">1)\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">play TS with 666000 frequency.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">autoscan 666000KHz.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2)change TS:</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</span></p>
+<p>2. 进入到搜索</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1. 搜索过程中提示：&ldquo;节目更新中，请勿断电！&rdquo;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109015" name="Auto scan trigger NIT version change(without delete)">
+	<node_order><![CDATA[3]]></node_order>
+	<externalid><![CDATA[1298]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p>play TS with 666000 frequency.</p>
+<p>autoscan 666000KHz.</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. popup window to notify user should scan again.</p>
+<p>2.因为第一路码流NIT表中没有描述666频点信息，所以重新搜索后，666频点节目没有删除。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109017" name="Auto scan trigger NIT version change(with delete)">
+	<node_order><![CDATA[4]]></node_order>
+	<externalid><![CDATA[1299]]></externalid>
+	<summary><![CDATA[<p>对thinewtec项目 ：</p>
+<p>触发搜索之后如果没有搜索到任何节目，则继续弹出NIT版本号变化提示框；</p>
+<p>NIT搜索是否删除旧节目跟着scan的自动搜索逻辑走。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>]]></summary>
+	<steps><![CDATA[<p>1、设置主频点：如714，主频点无节目播放</p>
+<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>play TS with 666000 frequency.（非主频点）</p>
+<p>autoscan 666000KHz.</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p>3、确认搜索</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.跟换码流2后 popup window to notify user should scan again.</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.触发搜索之后如果没有搜索到任何节目，则继续弹出NIT版本号变化提示框；</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109019" name="Manual scan trigger NIT version change">
+	<node_order><![CDATA[5]]></node_order>
+	<externalid><![CDATA[1300]]></externalid>
+	<summary><![CDATA[<p>&nbsp;for GLLJ：手动搜索不再触发NIT版本号变化</p>
+<p>&nbsp;</p>]]></summary>
+	<steps><![CDATA[<p>set main frequency:666000KHz.</p>
+<p>for jinya2,set main frequency:474000KHz.</p>
+<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p>play TS with 666000 frequency.(474000 for jinya2)</p>
+<p>manual scan 666000KHz.(474000 for jinya2)</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. popup window to notify user should scan again.</p>
+<p>2.因为666不在NIT的描述里，所以不会删除之前的666频点节目，重新搜索474和666频点节目。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109021" name="Full scan trigger NIT version change">
+	<node_order><![CDATA[6]]></node_order>
+	<externalid><![CDATA[1301]]></externalid>
+	<summary><![CDATA[<p>&nbsp;&nbsp;对于GLLJ项目，全频搜索只保存第一主频点的NIT所描述的TP的version（范围700MHz-800MHz)，这些TP要求包含在全频搜索的频点内。删除逻辑为全删。</p>
+<p>对于thinewtec项目 ，全频搜索的频点要大于等于NIT中描述的频点个数</p>]]></summary>
+	<steps><![CDATA[<p>set main frequency:666000KHz.</p>
+<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>play TS with 666000 frequency.</p>
+<p>full scan 474000-858000KHz.</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. popup window to notify user should scan again.</p>
+<p>2.删除之前的474和666频点节目，重新搜索474频点节目。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109023" name="Check trigger condition">
+	<node_order><![CDATA[7]]></node_order>
+	<externalid><![CDATA[1302]]></externalid>
+	<summary><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">a)if networkid=ENVnetworkid</span></p>
+<p style="margin: 10px 0px 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">b)if NITversion!=ENVNITversion</p>
+<p style="margin: 10px 0px 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">c)if ENVNITversion!=0xFF</p>
+<p style="margin: 10px 0px 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">如果三个条件都为true，将会执行重新搜索。</p>]]></summary>
+	<steps><![CDATA[<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv4_networkid1_addterristrial_474.ts</p>
+<p>play TS with 666000 frequency.</p>
+<p>auto scan 666000KHz.</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts &nbsp; &nbsp;</p>
+<p>3需要重新做流：version为0xFF</p>
+<p>474频点播放带NIT信息的码流：\\10.209.157.82\h\10.209.161.56_Stream\file_Helshinki_562Mhz_1.trp\Helshinki_562Mhz_1.trp<br />
+码流里带3个TP（674,562,658）</p>]]></steps>
+	<expectedresults><![CDATA[<p>播放第一路码流时，因为networkid为1，所以不会保存version。所以当切换到第二路码流时，会触发NIT更新。</p>
+<p>当ENVNITversion为0xFF时 不会触发NIT变更</p>
+<p>注：换流过程中，有锁定-》失锁-》锁定的过程，monitor启动后<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; background-color: rgb(240, 240, 240);">PMT的检测条件是检测video和audio的PID和stream type是否有变化，不是检测version number, 这两个流的video PID发生了变化所以触发PMT更新。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109025" name="NIT版本号变更的准确性">
+	<node_order><![CDATA[8]]></node_order>
+	<externalid><![CDATA[1303]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">在474频点上播放以下码流。</span></p>
+<p><span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">1.手动搜索下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">2.换成下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_id2_tag2294_all_manual.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">因为该流包含OTA数据，所以不会触发NIT变更，但会保存version值。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">3.换成下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_networkid2_terristrial474and666.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">因为该码流与步骤2中码流version值相同，所以不会触发NIT变更。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">4.换成下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">因为version值变更，所以会触发NIT版本变更提示。选择&ldquo;是&rdquo;，触发NIT主频点自动搜索。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">5.换成下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span></p>
+<p><span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 22.22222328186035px;">因为version值变更，所以会触发NIT版本变更提示。</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>1.从码流1换到码流2，不提示NIT版本变更。</p>
+<p>2.从码流2换到码流3，不提示NIT版本变更。</p>
+<p>3.从码流3换成码流4，提示NIT版本变更。</p>
+<p>4.从码流4换成码流5，提示NIT版本变更。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109027" name="ensure scan(duplicated with 4865)">
+	<node_order><![CDATA[9]]></node_order>
+	<externalid><![CDATA[1304]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;when popup inquier scan window,ensure scan.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. begin auto scan,scan frequency is the main frequency.</p>
+<p>2.frequency list correctly,program can be searched correctly.</p>
+<p>对于GLLJ项目，NIT强制搜索为主频点的自动搜索，先执行第一主频点的自动搜索，如果没有搜到节目，再执行第二主频点的自动搜索。<span style="font-size: 12px;">删除逻辑为全删。具体请参考自动搜索逻辑。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109029" name="cancel scan">
+	<node_order><![CDATA[10]]></node_order>
+	<externalid><![CDATA[1305]]></externalid>
+	<summary><![CDATA[<p>&nbsp;3-27和4250合并</p>]]></summary>
+	<steps><![CDATA[<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p>play TS with 666000 frequency.</p>
+<p>autoscan 666000KHz.</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>cancle scan.</p>
+<p>3.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_networkid2_terristrial474and666.ts</p>
+<p>4、弹出NIT重搜提示中选择否。</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(238, 238, 238);">4.power reset.</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.取消搜索后，在第一路流和第二路流之间切换，不再弹出NIT重新搜索提示框。</p>
+<p>2.改成播放第三路码流后，还能弹出NIT重新搜索提示框。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">3. 取消搜索后，开机强制进行主频点的自动搜索，删除旧的networkid=2的频点下的节目，重新搜索新节目。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 204);">&nbsp;<span style="margin: 0px; padding: 0px; font-size: 12px;">对于GLLJ项目，NIT强制搜索为主频点的自动搜索，先执行第一主频点的自动搜索，如果没有搜到节目，再执行第二主频点的自动搜索。</span><span style="margin: 0px; padding: 0px; font-size: 12px;">删除逻辑为全删。具体请参考自动搜索逻辑。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109031" name="power reset can trigger autoscan when user cancel scan(duplicated with 3153)">
+	<node_order><![CDATA[11]]></node_order>
+	<externalid><![CDATA[1306]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">play TS with 666000 frequency.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">autoscan 666000KHz.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.change TS:</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.when popup autoscan message,cancle scan.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">4.power reset.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1. 取消搜索后，开机强制进行主频点的自动搜索，删除旧的networkid=2的频点下的节目，重新搜索新节目。</p>
+<p>&nbsp;<span style="font-size: 12px;">对于GLLJ项目，NIT强制搜索为主频点的自动搜索，先执行第一主频点的自动搜索，如果没有搜到节目，再执行第二主频点的自动搜索。</span><span style="font-size: 12px;">删除逻辑为全删。具体请参考自动搜索逻辑。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109033" name="save scan result">
+	<node_order><![CDATA[12]]></node_order>
+	<externalid><![CDATA[1307]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<ul>
+    <li>&nbsp;after scan finish,push &lt;save&gt;.</li>
+    <li>exit when scan some program but scan not finish,push &lt;save&gt;.</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.check from quicklist and editchannel,program are saved correctly.</p>
+<p>2.the old program in this network_id are deleted.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109035" name="cancel save scan result">
+	<node_order><![CDATA[13]]></node_order>
+	<externalid><![CDATA[1308]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<ul>
+    <li>&nbsp;after scan finish,push &lt;cancle&gt;.</li>
+    <li>exit when scan some program but scan not finish,push &lt;cancle&gt;.</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.program are not saved.</p>
+<p>2.the old program don't be deleted.</p>
+<p>3.inquire scan window can popup again when next power on.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109037" name="no program display">
+	<node_order><![CDATA[14]]></node_order>
+	<externalid><![CDATA[1309]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<ul>
+    <li>plug out signal,after scan finish,popup no program,push &lt;ok&gt;.</li>
+    <li>exit when scan,popup no program,push &lt;ok&gt;.</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1.如果搜索逻辑为全删，则DB无节目，如果搜索逻辑不删除，则原节目还在.</p>
+<p><span style="background-color: rgb(255, 255, 204); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small;">2.如果原节目还在，信号恢复后，还能再次弹出NIT版本变更提示框。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109039" name="NIT version changed  when power on">
+	<node_order><![CDATA[15]]></node_order>
+	<externalid><![CDATA[1310]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;change TS(NIT version changed) when power on.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;popup inquire scan window.</p>
+<p>用户可选是否升级。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109041" name="NIT version changed but not current networkid">
+	<node_order><![CDATA[16]]></node_order>
+	<externalid><![CDATA[1311]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.change TS when playing,NIT version and networkid are changed.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;can't trigger scan in this situation.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109043" name="message can popup as long as background has program play">
+	<node_order><![CDATA[17]]></node_order>
+	<externalid><![CDATA[1312]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;check message popup in following status:</p>
+<ul>
+    <li>TVScreen</li>
+    <li>muti_audio</li>
+    <li>quicklist</li>
+    <li>epg</li>
+    <li>mainmenu</li>
+    <li>editchannel</li>
+</ul>
+<p>except following status:</p>
+<ul>
+    <li>channel scan</li>
+    <li>factory reset</li>
+    <li>delete all</li>
+    <li>locked status</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1. message can popup as long as background has program play</p>
+<p>&nbsp;2.NIT message can't impact EPG function.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109045" name="operation normally in editchannel after do search">
+	<node_order><![CDATA[18]]></node_order>
+	<externalid><![CDATA[1313]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.in editchannel,select favorite,then waiting NIT version change.</p>
+<p>2.in editchannel,select move,then waiting NIT version change.</p>
+<p>3.in editchannel,push &lt;edit&gt; to popup softkeypad,then waiting NIT version change.</p>
+<p>4.in editchannel,select delete,then waiting NIT verison change.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;in these status,after do auto scan,enter editchannel again,operation should be normal.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109047" name="NIT version changed  in weak signal">
+	<node_order><![CDATA[19]]></node_order>
+	<externalid><![CDATA[1314]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;change TS(NIT version changed) in weak signal.</p>]]></steps>
+	<expectedresults><![CDATA[<p>system can response correctly in weak signal.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109049" name="in all window,don't have memoryleak after search">
+	<node_order><![CDATA[20]]></node_order>
+	<externalid><![CDATA[1315]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;check message popup in following status:</p>
+<ul>
+    <li>TVScreen</li>
+    <li>muti_audio</li>
+    <li>quicklist</li>
+    <li>epg</li>
+    <li>mainmenu</li>
+</ul>
+<p>stay in these window,waiting popup message.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.after do search,don't have memoryleak in these window.</p>
+<p><strong><span style="font-size: larger;"><span style="color: rgb(255, 0, 0);">特殊场景，可不做memory leak 检测</span></span></strong></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109051" name="OTA升级信息引起的NIT版本变更">
+	<node_order><![CDATA[21]]></node_order>
+	<externalid><![CDATA[1316]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>2.将码流卡频点设置为746000KHz，播放码流：<br />
+\\10.209.161.56\Stream\OTA\librasd\addOTAdescriptor\NITv6_id2_fulltest_logo_manual.ts<br />
+3.手动搜索746000频点。<br />
+4.关机，在loader设置相关参数，使之能触发OTA升级。</p>
+<p class="MsoNormal"><span lang="EN-US" style="font-size: 11pt; font-family: Arial, sans-serif; color: rgb(51, 51, 51); background-position: initial initial; background-repeat: initial initial;">set_pinfo stb_provider 0x1008 </span><span lang="EN-US" style="font-size:11.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#333333"><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo hw_id 0x01020304</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo hw_model 0x05060708</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo sw_model 0x09101112</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo operator_id 0x123</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo hw_config 0x456</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo year_week 0x7890</span><br />
+<span style="background-position: initial initial; background-repeat: initial initial;">set_pinfo product_id 0x123456<o:p></o:p></span></span></p>
+<p class="MsoNormal"><span lang="EN-US" style="font-size: 11pt; font-family: Arial, sans-serif; color: rgb(51, 51, 51); background-position: initial initial; background-repeat: initial initial;">save_pinfo<o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US" style="font-size: 11pt; font-family: Arial, sans-serif; color: rgb(51, 51, 51); background-position: initial initial; background-repeat: initial initial;">set_upcfg sw_id 0x12345677<o:p></o:p></span></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;"><span lang="EN-US" style="font-size: 11pt; font-family: Arial, sans-serif; background-position: initial initial; background-repeat: initial initial;">save_upcfg</span><br />
+5.切换码流为：<br />
+&nbsp;\\10.209.161.56\Stream\ASpecialTestTS\OTA\librasd\addOTAdescriptor\jinya\tag44074_res_swctr00_compulsive.ts(8M flash)</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\OTA\librasd\addOTAdescriptor\NITv2_app43061(new)_manual.ts(4M flash)<br />
+开机，检测到升级信息，点击&ldquo;确定&rdquo;触发OTA手动升级。</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">OTA升级完成，重启后节目正常播放，不再提示NIT版本号变更信息。</span></p>
+<p>2.如果OTA升级信息版本不匹配时，也不应该触发NIT版本变更。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109053" name="scan can't response NIT version change">
+	<node_order><![CDATA[22]]></node_order>
+	<externalid><![CDATA[1317]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.将主频点设为474000KHz.</p>
+<div>2.将码流卡频点设置为474000KHz，播放码流：</div>
+<div>\\10.209.161.56\Stream\OTA\librasd\addOTAdescriptor\NITv2_id2_tag2294_app_manual.ts</div>
+<div>3.手动搜索474000频点。</div>
+<div>4.切台到其他频点，切换码流为：</div>
+<div>\\10.209.161.56\Stream\OTA\librasd\addOTAdescriptor\NITv5_id2_fulltest_hwid0x010203.ts</div>
+<div>5.进入手动搜索界面，设置频点为474000KHz，执行搜索。</div>]]></steps>
+	<expectedresults><![CDATA[<p>在整个搜索过程，包括scan option,scan progress,scan result,都不能响应NIT version变更。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109055" name="NIT版本变更引发的预约变更">
+	<node_order><![CDATA[24]]></node_order>
+	<externalid><![CDATA[1318]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">1.play TS with 474000 frequency.</span></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">autoscan/manualscan 474000KHz.</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">2.自动搜索下面码流：\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_networkid2_terristrial474and666.ts</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">3.预约CCTV-1一个节目，在预定管理中成功显示。</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">3.更换为下面码流：<br />
+\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.触发NIT版本变更，重新搜索。</p>
+<p>2.因为重新搜索后，CCTV-1节目不存在了，对应的预约节目应该删除。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109057" name="开机（没有节目）触发NIT版本变更，搜不到节目。">
+	<node_order><![CDATA[26]]></node_order>
+	<externalid><![CDATA[1319]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">步骤：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">在474频点上播放以下码流。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">1.手动搜索下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">2.换成下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts存version值。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">3.弹出NIT版本变更，是否要重新搜索时选择&quot;否&quot;。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">4.删除所有节目，拔信号线，重新开机。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;"><br />
+</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>1.开机没有节目，NIT自动搜索优先级高于自动搜索优先级。（这条只针对thinew项目）</p>
+<p>2.如果没有搜索任何节目的情况下，操作正常，不会引发dataabort。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109059" name="快速反复切台，不会重复弹出NIT版本变更。">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1320]]></externalid>
+	<summary><![CDATA[<p>&nbsp;在有NIT变更的节目和无NIT变更的节目之间快速反复切台，NIT版本变更取消后，不会反复弹出。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">1.搜索实时信号。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">2.设置主频点为770，自动搜索码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NIT_V1_ID2_add722and762.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">3.切台到实时节目，码流更换为：</span><font color="#333333" face="Arial, sans-serif"><span style="font-size: 13.63636302948px; line-height: 18.1818180084229px;">NIT_V3_ID2_add722and762and746</span></font><span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302948px; line-height: 18.1818180084229px;">.ts</span></p>
+<p><span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">4.从实时节目切换到发生NIT变更的节目，再迅速切回到实时节目，弹出NIT版本变更提示框。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">5.选择否。再次切台到NIT变更的节目。</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;在有NIT变更的节目和无NIT变更的节目之间快速反复切台，NIT版本变更取消后，不会反复弹出。</p>]]></expectedresults>
+</testcase>
+</testsuite><testsuite name="NIT monitor by tp (for Geeya)" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[]]> 
+</details>
+<testcase internalid="109062" name="自动搜索保存NITversion">
+	<node_order><![CDATA[0]]></node_order>
+	<externalid><![CDATA[1321]]></externalid>
+	<summary><![CDATA[<p>&nbsp;测试方法：</p>
+<p>也可以直接播放码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p>自动搜索该频点，退出播放，播放过程中会触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放TS：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>2.自动搜索该频点，退出播放。</p>
+<p>3.更换码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_id2_tag2294_all_manual.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;触发NIT版本变更搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109064" name="频组搜索不保存NITversion">
+	<node_order><![CDATA[1]]></node_order>
+	<externalid><![CDATA[1322]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.474播放TS：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>666播放TS：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_id2_tag2294_all_manual.ts</p>
+<p>2.频组搜索这两个频点，退出播放474频点节目。</p>
+<p>3.666频点更换码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid1_terristrial474and666.ts</p>
+<p>4.切台到666频点。</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;不会触发NIT版本变更搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109066" name="每个频点保存一个NITversion">
+	<node_order><![CDATA[2]]></node_order>
+	<externalid><![CDATA[1323]]></externalid>
+	<summary><![CDATA[<p>&nbsp;用户基于主频点自动搜索模式触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>1.自动搜索频点1，码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITv5_474and666changetoNITv6_changePMT.ts</p>
+<p>2.自动搜索频点2，码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv6_networkid2_changePMT.ts</p>
+<p>3.收看频点1节目。</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;收看频点1节目时，会触发NIT版本变更，基于主频点自动搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109068" name="基于频组1触发NIT版本变更">
+	<node_order><![CDATA[3]]></node_order>
+	<externalid><![CDATA[1324]]></externalid>
+	<summary><![CDATA[<p>&nbsp;&nbsp;用户选择基于频组1触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放TS：</p>
+<p>\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\<span style="font-size: 12px;">NITv3_474changetoNITv4_474.ts</span></p>
+<p>2.频组搜索包含该频点，退出播放。</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>播放过程中触发NIT版本变更搜索，删除所有节目，基于频组1重新搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109070" name="基于频组2触发NIT版本变更">
+	<node_order><![CDATA[4]]></node_order>
+	<externalid><![CDATA[1325]]></externalid>
+	<summary><![CDATA[<p>&nbsp;用户选择基于频组2触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放TS：</p>
+<p>\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\<span style="font-size: 12px;">NITv3_474changetoNITv4_474.ts</span></p>
+<p>2.频组搜索包含该频点，退出播放。</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;播放过程中触发NIT版本变更搜索，删除所有节目，基于频组2重新搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109072" name="基于频组3触发NIT版本变更">
+	<node_order><![CDATA[5]]></node_order>
+	<externalid><![CDATA[1326]]></externalid>
+	<summary><![CDATA[<p>&nbsp;用户选择基于频组3触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放TS：</p>
+<p>\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p>2.自动搜索该频点，退出播放。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;播放过程中触发NIT版本变更搜索，删除所有节目，基于频组3重新搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109074" name="基于主频点自动搜索触发NIT版本变更">
+	<node_order><![CDATA[6]]></node_order>
+	<externalid><![CDATA[1327]]></externalid>
+	<summary><![CDATA[<p>用户选择基于主频点自动搜索触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>1.播放TS：</p>
+<p>\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p>2.自动搜索该频点，退出播放。</p>]]></steps>
+	<expectedresults><![CDATA[<p>播放过程中触发NIT版本变更搜索，删除所有节目，基于主频点自动搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109076" name="基于当前频点自动搜索触发NIT版本变更">
+	<node_order><![CDATA[6]]></node_order>
+	<externalid><![CDATA[1328]]></externalid>
+	<summary><![CDATA[<p>用户选择基于当前频点自动搜索触发NIT版本变更。</p>]]></summary>
+	<steps><![CDATA[<p>1.播放TS：</p>
+<p>\\10.209.161.56\Stream\Audio_Test_Purpose\MpegAudio\mpeg1_layer2.ts</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p>2.自动搜索该频点，退出播放。</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>播放过程中触发NIT版本变更搜索，删除所有节目，基于当前频点自动搜索。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109078" name="开机（没有节目）触发NIT版本变更，搜不到节目。">
+	<node_order><![CDATA[8]]></node_order>
+	<externalid><![CDATA[1329]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p><span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">1.自动搜索下面码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\</span>NITv1_474and666changetoNITv3_474.ts<br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">3.弹出NIT版本变更，是否要重新搜索时选择&quot;否&quot;。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">4.删除所有节目，拔信号线，重新开机。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;"><br />
+</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;没有搜到任何节目，进入menu，而不是进入TVScreen。</p>
+<p>操作正常，不会引发dataabort。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109080" name="NIT version changed  when power on">
+	<node_order><![CDATA[9]]></node_order>
+	<externalid><![CDATA[1330]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;change TS(NIT version changed) when power on.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;popup inquire scan window.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109082" name="cancel scan">
+	<node_order><![CDATA[10]]></node_order>
+	<externalid><![CDATA[1331]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv5_networkid2_terristrial474.ts</p>
+<p>autoscan</p>
+<p>2.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_networkid2_terristrial474and666.ts</p>
+<p>cancle scan.</p>
+<p>3.change TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_networkid2_terristrial474and666.ts</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.取消搜索后，在第一路流和第二路流之间切换，不再弹出NIT重新搜索提示框。</p>
+<p>2.改成播放第三路码流后，还能弹出NIT重新搜索提示框。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109084" name="power reset can trigger autoscan when user cancel scan">
+	<node_order><![CDATA[11]]></node_order>
+	<externalid><![CDATA[1332]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>autoscan&nbsp;TS:</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3.when popup autoscan message,cancle scan.</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">4.power reset.</p>]]></steps>
+	<expectedresults><![CDATA[<p>取消搜索后，开机根据用户选择的NIT搜索模式，强制进行NIT版本变更搜索，删除旧节目，重新搜索新节目。</p>
+<p>&nbsp;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109086" name="no program display">
+	<node_order><![CDATA[12]]></node_order>
+	<externalid><![CDATA[1333]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<ul>
+    <li>plug out signal,after NIT scan finish,popup no program,push &lt;ok&gt;.</li>
+    <li>exit when scan,popup no program,push &lt;ok&gt;.</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1.the old program are deleted.</p>
+<p><span style="background-color: rgb(255, 255, 204); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; font-size: small;">2.enter main window.</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109088" name="operation normally in editchannel after do search">
+	<node_order><![CDATA[13]]></node_order>
+	<externalid><![CDATA[1334]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.in editchannel,select favorite,then waiting NIT version change.</p>
+<p>2.in editchannel,select move,then waiting NIT version change.</p>
+<p>3.in editchannel,push &lt;edit&gt; to popup softkeypad,then waiting NIT version change.</p>
+<p>4.in editchannel,select delete,then waiting NIT verison change.</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;in these status,after do NIT scan,enter editchannel again,operation should be normal.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109090" name="NIT version changed  in weak signal">
+	<node_order><![CDATA[14]]></node_order>
+	<externalid><![CDATA[1335]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;change TS(NIT version changed) in weak signal.</p>]]></steps>
+	<expectedresults><![CDATA[<p>system can response correctly in weak signal.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109092" name="NIT版本变更引发的预约变更">
+	<node_order><![CDATA[16]]></node_order>
+	<externalid><![CDATA[1336]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.自动搜索下面码流：\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv3_474changetoNITv4_474.ts</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">2.预约CCTV-1一个节目，在预定管理中成功显示。</p>
+<p style="margin: 10px 0px 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14.44444465637207px; line-height: 22.22222328186035px;">&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.播放过程中触发NIT版本变更，重新搜索。</p>
+<p>2.因为重新搜索后，CCTV-1节目不存在了，对应的预约节目应该删除。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109094" name="in all window,don't have memoryleak after search">
+	<node_order><![CDATA[17]]></node_order>
+	<externalid><![CDATA[1337]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;check message popup in following status:</p>
+<ul>
+    <li>TVScreen</li>
+    <li>muti_audio</li>
+    <li>quicklist</li>
+    <li>epg</li>
+    <li>mainmenu</li>
+</ul>
+<p>stay in these window,waiting popup message.</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.after do search,don't have memoryleak in these window.</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109096" name="提示信息显示60s后再进行搜索">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1338]]></externalid>
+	<summary><![CDATA[<p>&nbsp;feedback from Geeya</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放TS：</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NITv1_474and666changetoNITv3_474.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.自动搜索该频点，退出播放。</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">3，触发NIT版本更新时弹出提示框，用户点否，下次开机强制搜索的提示框仍然显示2S</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p>1.<span style="font-size: 12px;">播放过程中触发NIT版本变化，弹出提示信息&rdquo;NIT版本发生变化，是否重新搜索？&ldquo;</span></p>
+<p>2.提示信息显示60秒，进行相应的搜索</p>
+<p>3.提示信息显示Message中需要显示倒计时</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109098" name="快速反复切台，不会重复弹出NIT版本变更。">
+	<node_order><![CDATA[101]]></node_order>
+	<externalid><![CDATA[1339]]></externalid>
+	<summary><![CDATA[<p>&nbsp;在有NIT变更的节目和无NIT变更的节目之间快速反复切台，NIT版本变更取消后，不会反复弹出。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">1.搜索实时信号。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">2.设置主频点为770，自动搜索码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NIT_V1_ID2_add722and762.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">3.切台到实时节目，码流更换为：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">\\10.209.161.56\Stream\ASpecialTestTS\NITversionchange\NIT_V2_ID1_add722and762.ts</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">4.从实时节目切换到发生NIT变更的节目，再迅速切回到实时节目，弹出NIT版本变更提示框。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 13.63636302947998px; line-height: 18.18181800842285px;">5.选择否。再次切台到NIT变更的节目。</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;在有NIT变更的节目和无NIT变更的节目之间快速反复切台，NIT版本变更取消后，不会反复弹出。</p>]]></expectedresults>
+</testcase>
+</testsuite><testsuite name="SDT version monitor" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[]]> 
+</details>
+<testcase internalid="109101" name="service name update">
+	<node_order><![CDATA[11]]></node_order>
+	<externalid><![CDATA[1340]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;play following TS:</p>
+<p>&nbsp;\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\SDTv1nochange_SDTv2allnamechange.ts</p>
+<p>该码流第二套节目超过17个汉字，第三套节目名称为空。</p>
+<p>在下列窗口下查看：</p>
+<ul>
+    <li>oklist</li>
+    <li>EPG</li>
+    <li>editchannel</li>
+    <li>inforbanner2</li>
+    <li>inforbanner1</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1.servicename能够在这些窗口下实时更新。</p>
+<p>2.servicename更新正确。最大支持17个汉字，节目名称为空的显示&ldquo;unknown&rdquo;。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109103" name="SDT version change but not servicename update">
+	<node_order><![CDATA[12]]></node_order>
+	<externalid><![CDATA[1341]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>&nbsp;play following TS:</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\&nbsp;SDTv1nochange_SDTv3changeprovider.ts</p>
+<p>在下列窗口下查看：</p>
+<ul>
+    <li>oklist</li>
+    <li>EPG</li>
+    <li>editchannel</li>
+    <li>inforbanner2</li>
+    <li>inforbanner1</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1.系统运行正常，不会有任何提示。</p>
+<p>2.进入窗口或者在窗口下实时查看，没有什么变化。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109105" name="SDT版本号变更的准确性">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1342]]></externalid>
+	<summary><![CDATA[<p>&nbsp;SDT信息变更以version变更为前提。但切换频点时monitor会重新开关，信息都会变更。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;1.播放下面码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\SDTv1nochange_SDTv1allnamechange.ts</p>
+<p><span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">2.在播放过程中进入下列窗口下查看：</span></p>
+<ul style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">
+    <li>oklist</li>
+    <li>EPG</li>
+    <li>editchannel</li>
+    <li>inforbanner2</li>
+    <li>inforbanner1</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;1.播放过程中因为version值没有变化，所以虽然servicename发生了变化，也不会触发变更。</p>
+<p>2.如果更换了频点，monitor会开关一下，所以即时verison不变，也会触发servicename的变更。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109107" name="SDT version change when power on">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1343]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1.播放下面码流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\SDTv1_nochange.ts</p>
+<p>2.关机。换流：</p>
+<p>\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\SDTv2_allnamechange.ts</p>
+<p>3.开机。<span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">在下列窗口下查看：</span></p>
+<ul style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">
+    <li>oklist</li>
+    <li>EPG</li>
+    <li>editchannel</li>
+    <li>inforbanner2</li>
+    <li>inforbanner1</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1.所有窗口下的service name都发生了变化。</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.servicename更新正确。最大支持17个汉字，节目名称为空的显示&ldquo;unknown&rdquo;。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109109" name="SDT version change in weak signal">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1344]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p><font face="Trebuchet MS, Verdana, Arial, sans-serif"><span style="background-color: rgb(238, 238, 238);">1.使用衰减器，将信号衰减到锁定和锁不定的临界值。</span></font></p>
+<p><span style="background-color: rgb(238, 238, 238); font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;">2.play following TS:</span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">&nbsp;\\10.209.161.56\Stream\ASpecialTestTS\SDTversionchange\SDTv1nochange_SDTv2allnamechange.ts</p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">在下列窗口下查看：</p>
+<ul style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">
+    <li>oklist</li>
+    <li>EPG</li>
+    <li>editchannel</li>
+    <li>inforbanner2</li>
+    <li>inforbanner1</li>
+</ul>]]></steps>
+	<expectedresults><![CDATA[<p>1. SDT信息在弱信号下也能够正确变更。</p>
+<p><span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">2.servicename更新正确。最大支持17个汉字，节目名称为空的显示&ldquo;unknown&rdquo;。</span></p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109111" name="servicename变更的条件">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1345]]></externalid>
+	<summary><![CDATA[<p>&nbsp;1.SDT version发生变更。</p>
+<p>2.要保证是同一节目的。即TP,TS_id,service_id都相同。</p>]]></summary>
+	<steps><![CDATA[<p>&nbsp;<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">1.搜索码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+//bjfile02/BJShare/Public/TS/Pvr/file_江油有视频无声音码流.ts/<br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">该码流没有SDT表，搜索到的三个节目均为unknown。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">2.替换码流：</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+//bjfile02/BJShare/Public/TS/file_20120411_ChinaSat6B_4171MHz_9200Ksps.ts<br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">该码流有三个节目与step1中码流的三个节目的serviceid相同，但TS_id不同。</span><br style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;" />
+<span style="color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;">3.查看节目。</span></p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;旧的节目不会被新节目名称替换。</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109113" name="在列表界面等待SDT版本号变化">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1346]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p>1. 在电视节目列表/电视节目管理列表 等待SDT版本号变化</p>
+<p>2. 在EPG界面（光标在电视节目以及光标节目上），等待SDT版本号变化</p>]]></steps>
+	<expectedresults><![CDATA[<p>&nbsp;发生SDT版本号变化后，节目列表显示正常</p>]]></expectedresults>
+</testcase>
+</testsuite><testsuite name="Service_Update_Descriptor version monitor" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[]]> 
+</details>
+<testcase internalid="109116" name="ServiceUpdate version change no force flag">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1347]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p><span style="font-size: larger;">&nbsp;1、search stream1 :\\bjfile02\BJShare\Public\TS\antares_test_stream\PSI_Parser\NIT_update\file_original_3.ts</span></p>
+<p><span style="font-size: larger;">2、play program in stream1</span></p>
+<p><span style="font-size: larger;">3、change stream 2:&nbsp;\\bjfile02\BJShare\Public\TS\antares_test_stream\PSI_Parser\NIT_update\file_optional_4.ts</span></p>
+<p>4、重启STB</p>
+<p>&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p><span style="font-size: larger;">Step3,后弹出 service update 提示，但不会立即搜索</span></p>
+<p><span style="font-size: larger;">Step 4，重启后 自动进行auto search</span></p>
+<p>&nbsp;</p>]]></expectedresults>
+</testcase>
+
+<testcase internalid="109118" name="ServiceUpdate version change with force flag">
+	<node_order><![CDATA[100]]></node_order>
+	<externalid><![CDATA[1348]]></externalid>
+	<summary><![CDATA[]]></summary>
+	<steps><![CDATA[<p><span style="font-size: larger;">&nbsp;<span style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">1、search stream1 :\\bjfile02\BJShare\Public\TS\antares_test_stream\PSI_Parser\NIT_update\file_original_3.ts</span></span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);"><span style="font-size: larger;"><span style="margin: 0px; padding: 0px;">2、play program in stream1</span></span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);"><span style="font-size: larger;"><span style="margin: 0px; padding: 0px;">3、change stream 2:\\bjfile02\BJShare\Public\TS\antares_test_stream\PSI_Parser\NIT_update\file_force_5.ts</span></span></p>
+<p style="font-family: 'Trebuchet MS', Verdana, Arial, sans-serif; background-color: rgb(238, 238, 238);">&nbsp;</p>]]></steps>
+	<expectedresults><![CDATA[<p><span style="font-size: larger;">&nbsp;Step3，更换码流后，自动进行auto search，搜索后节目播放正常</span></p>
+<p>&nbsp;</p>]]></expectedresults>
+</testcase>
+</testsuite></testsuite></testsuite>

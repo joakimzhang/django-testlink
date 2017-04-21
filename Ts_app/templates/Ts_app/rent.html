@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form method='post' enctype="multipart/form-data">
+{% csrf_token %}
+{{ form2 }}
+<input type="submit" name="rent" value="rent" action="rent">
+</input>
+</form>
+ 
+ <table border=1>
+ {% for i in rent_obj %}
+ 
+<tr>
+<td>
+<a>{{i.d_type}} </a>
+</td>
+<td>
+<a>{{i.d_id}}  </a>
+</td>
+<td>
+<img src="/media/{{i.d_pic.url}}" border="0" height="70" width="220">
+
+</td>
+<td>
+<a>{{i.p_name}}  </a>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+
+
+<p>请输入两个数字</p>
+<form action="/add/" method="get">
+    a: <input type="text" id="a" name="a"> <br>
+    b: <input type="text" id="b" name="b"> <br>
+    <p>result: <span id='result'></span></p>
+    <button type="button" id='sum'>提交</button>
+</form>
+<div id='list'>加载列表</div>
+<p id="list_result"></p>
+<div id='dic'>加载字典</div>
+<p id="dic_result"></p>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#sum").click(function(){
+			var a = $("#a").val();
+			var b = $("#b").val();
+			$.get("/add/",{'a':a,'b':b},function(ret){
+				$('#result').html(ret);
+			})
+	
+		});
+		$('#list').click(function(){
+			$.getJSON('/ajax_list/',function(ret){
+				for(var i = ret.length-1;i>=0;i--){
+					$('#list_result').append(''+ret[i])
+				};
+			})
+		});
+		$('#dic').click(function(){
+			$.getJSON('/ajax_dic/',function(ret){
+				$('#dic_result').append(''+ret['zqxt'])
+			});
+		});	
+		setInterval(function(){
+			$('#dic_result').html('loading')
+			$.getJSON('/ajax_dic/',function(ret){
+				$('#dic_result').html(''+ret['zqxt'])
+			})
+		},3000);	
+	});
+</script>
+</body>
+</html>

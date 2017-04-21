@@ -1,0 +1,234 @@
+<html>
+<body>
+<form method='post'> 
+{% csrf_token %}
+{{ form }}
+<input type="submit" name="switch" value="switch" action="switch">
+</input>
+</form>
+<form method='post'>
+{% csrf_token %}
+{{ form_stream }}
+<input type="submit" name="switch_file" value='switch'>
+</input>
+</form>
+{% for i in result_num %}
+<a>{{i}}</a>
+</br>
+{% endfor %}
+</br>
+
+
+<table border=1>
+ <col width=82 span=7 style='width:54pt'>
+ 
+<form method='post'>
+{% csrf_token %}
+<select id="host_id" name="host_id">
+<option value="bjdqa150804">bjdqa150804</option>
+<option value="bjdittest">bjdittest</option>
+<option value="bjdlise2">bjdlise2</option>
+</select>
+<div>
+<p>result: <span id='result'></span></p>
+</div>
+
+<tr>
+<td>mode</td>
+<td>carrier mode</td>
+<td>Modulation</td>
+<td>code rate</td>
+<td>frame mode</td>
+<td>inter leaving</td>
+<td>rate</td>
+<td>
+<input type="button" value='submit' id="radio_button">
+</td>
+</tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">1<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=3780<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>16QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.4</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN945<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>9.626</span></td>
+<td>
+<input type="radio" value="1" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">2<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=1<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>4QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.8</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN595<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>10.396</span></td>
+<td>
+<input type="radio" value="2" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">3<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=3780<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>16QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.6</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN945<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>14.438</span></td>
+<td>
+<input type="radio" value="3" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">4<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=1<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>16QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.8</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN595<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>20.791</span></td>
+<td>
+<input type="radio" value="4" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">5<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=3780<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>16QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.8</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN420<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>21.658</span></td>
+<td>
+<input type="radio" value="5" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">6<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=3780<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>64QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.6</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN420<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>24.365</span></td>
+<td>
+<input type="radio" value="6" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=22 style='height:16.5pt'>
+  <td height=22 class=xl67 width=72 style='height:16.5pt;width:54pt'>&#27169;&#24335;<font
+  class="font7">7<span style='mso-spacerun:yes'>&nbsp;</span></font></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>C=1<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>32QAM<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>0.8</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>PN595<span
+  style='mso-spacerun:yes'>&nbsp;</span></span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>720</span></td>
+  <td class=xl68 width=72 style='width:54pt'><span lang=EN-US>25.989</span></td>
+<td>
+<input type="radio" value="7" name="check_box_list"/>
+</td>
+ </tr>
+ <tr height=0 style='display:none'>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+  <td width=72 style='width:54pt'></td>
+ </tr>
+</form>
+</table>
+
+
+
+</br>
+</br>
+</br>
+
+
+
+<form method='post'>
+{% csrf_token %}
+{{ form_user }}
+<input type="submit" name="rent" value="rent" action="rent">
+
+</form>
+</br>
+<table border=1>
+<tr>
+<td>
+<a>the stream card</a>
+</td>
+<td>
+<a>current user</a>
+</td>
+<td>
+<a>rent time</a>
+</td>
+</tr>
+{% for info_use in user_obj %}
+<tr>
+<td>
+<a>{{info_use.server_name}} </a>
+</td>
+<td>
+<a>{{info_use.user_name}}  </a>
+</td>
+<td>
+<a>{{info_use.rent_time}}  </a>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#radio_button").click(function(){
+			$('#result').html("loading...");
+			var r_id = $("input[name='check_box_list']:checked").val();
+			var h_name = $("#host_id").val();
+			$.getJSON("/ajax_radio/",{radio_id:r_id,host_id:h_name},function(ret){
+				$('#result').html("");
+				for(var i = ret.length-1;i>=0;i--){
+					$('#result').append('</br>'+ret[i])
+				};
+				
+				
+			})
+	
+		});	
+	});
+</script>
+</body>
+</html>

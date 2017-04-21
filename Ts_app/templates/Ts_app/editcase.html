@@ -1,0 +1,23 @@
+
+
+<form method='POST' enctype="multipart/form-data">
+{% csrf_token %}
+{{ form_obj_2 }}
+<input type='submit' name="add_case" value="add_case"></input>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+{% load tree_list %}
+{{ test_suite_list|li_tree }}
+
+
+
+
+
