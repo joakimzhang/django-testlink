@@ -253,7 +253,7 @@ def get_suite_list(root_node,build_id):
         # 当是case的时候，把case加入list
         #elif str(i) == "TestlinkCase":
         if i.type_name() == "TestlinkCase":
-            j = i.case_report.filter(build_name=build_id)
+            j = i.case_report.filter(build_name=build_id).order_by('-id')
             if j:
                 _test_result = j[0].test_result
             else:
@@ -335,26 +335,13 @@ def test_build_view(request, _build_id):
                   {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
 def test_case_view(request, case_num):
     test_case_list = TestlinkCase.objects.filter(id=int(case_num))
-    for i in test_case_list:
-        if i.id:
-            num = i.id
-            report_obj = i.case_report.all()
-            for j in report_obj:
-                print j.test_result
-    print test_case_list
     comment_list = BlogComment.objects.filter(ariticle=int(case_num))
-    #comment_list = BlogComment.objects.all()
     form = BlogCommentForm()
-    if request.method == 'POST':
-        #print request.POST.values()
-        if "delete" in request.POST.values():
-            fileter_o = TestlinkCase.objects.filter(id=num).delete()
-            #print num
-            return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list})
-        if "edit" in request.POST.values():
-            print "edit"
-    
     return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list,'comment_list':comment_list,'form':form})
+def test_suite_view(request, suite_num):
+    test_suite_queryset = TestlinkDB.objects.filter(id=int(suite_num))
+    test_suite_list = get_suite_list(test_suite_queryset, 0)
+    return render(request,'Ts_app/testsuite.html',{'suite_id':int(suite_num),'test_suite_list':test_suite_list})
 
 def test_report_view(request, case_num):
     #build_id = request.GET['id']

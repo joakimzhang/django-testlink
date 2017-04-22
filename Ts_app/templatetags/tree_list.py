@@ -39,7 +39,7 @@ def li_tree(value):
                     indent, list_formatter(children, tabs + 1), indent, indent)
                 #print item
                 #output.append('%s<li><font color="black"><a>%s</a>%s</li>' % (indent, item[0], sublist))
-                output.append('%s<li class="testlink_suite"><a href="/admin/Ts_app/testlinkdb/%s/change/">%s</a>%s</li>' % (indent,item[1], item[0], sublist))
+                output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent,item[1], item[0], sublist))
             else:
                 if item[2]==1:
                     #output.append('%s<div class="testlink_case"><a href="/testcase/%s">%s</a>%s</div>' % (indent, item[1], item[0], sublist))
@@ -56,7 +56,8 @@ def li_tree(value):
                         output.append('%s<div class="testlink_case"><a href="/testcase/%s">%s</a>%s</div>' % (indent, item[1], item[0], sublist))       
                            
                 else:
-                    output.append('%s<li class="testlink_suite"><a href="/admin/Ts_app/testlinkdb/%s/change/">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
+                    #output.append('%s<li class="testlink_suite"><a href="/admin/Ts_app/testlinkdb/%s/change/">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
+                    output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
 
         return '\n'.join(output)
     return mark_safe(list_formatter(value))

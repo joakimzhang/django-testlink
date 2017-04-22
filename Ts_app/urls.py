@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^equipment/$', views.rentview),
     url(r'^testlink/$', views.testlinkview),
     url(r'^testcase/(\d+)$', views.test_case_view),
+    url(r'^testsuite/(\d+)$', views.test_suite_view),
     url(r'^testreport/(.+)', views.test_report_view),
     url(r'^testbuild/(.+)', views.test_build_view),
     url(r'^editcase/', views.edit_case_view),

@@ -24,8 +24,20 @@ class TestlinkAdmin(admin.ModelAdmin):
                 field.initial = kwargs['request'].GET['id']
             except:
                 pass
+        if db_field.name == 'case_suite':
+        #    if kwargs:
+            try:
+                field.initial = kwargs['request'].GET['id']
+            except:
+                pass
+        if db_field.name == 'parent_suite_name':
+        #    if kwargs:
+            try:
+                field.initial = kwargs['request'].GET['id']
+            except:
+                pass
                 
-        print "aaaaaaaaaaaaaaaaaaaaaa",field,"aaaaaaaaaaaaa",db_field,"aaaaaaaaaaaa",kwargs
+        #print "aaaaaaaaaaaaaaaaaaaaaa",field,"aaaaaaaaaaaaa",db_field,"aaaaaaaaaaaa",kwargs
         return field
     
     def response_add(self, request, obj, post_url_continue=None):
@@ -106,7 +118,7 @@ class TestlinkAdmin(admin.ModelAdmin):
         
             if opts.model_name == "testlinkdb":
                 #return HttpResponseRedirect("/testcase/%s"%(pk_value))
-                return HttpResponseRedirect("/testlink")
+                return HttpResponseRedirect("/testsuite/%s"%(request.GET['id']))
             elif opts.model_name == "testlinkreport":
                 return HttpResponseRedirect("/testreport/%s"%(request.GET['id']))  
             else:        
