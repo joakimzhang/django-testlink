@@ -1,0 +1,8 @@
+<a href="/testlink/">回首页</a><br>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkdb/{{suite_id}}/change/')">修改目录</button>
+<button onclick="window.location.href=('/create_excel/')">生成excel</button>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkcase/add?id={{suite_id}}')">新建用例</button>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkdb/add?id={{suite_id}}')">新建目录</button>
+{% load tree_list %}
+
+{{ test_suite_list|li_tree }}
