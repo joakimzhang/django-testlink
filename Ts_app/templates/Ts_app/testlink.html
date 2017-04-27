@@ -31,9 +31,14 @@
             })
         })
 </script>
-<a href="/testlink/">回首页</a><br>
-
-<button onclick="window.location.href=('/create_excel/')">生成excel</button>
+<div>
+<a style='margin-right:20px;color:blue;font-size:20px' href="/testlink/">回首页</a>
+{% for i in test_build_list %}
+<a style='margin-right:20px;color:green;font-size:20px' href="/testbuild/{{ i.id }}">
+{{ i.build_name }}
+</a>
+{% endfor %}<br>
+</div>
 <button onclick="window.location.href=('/admin/Ts_app/testlinkcase/add/')">新建用例</button>
 <button onclick="window.location.href=('/admin/Ts_app/testlinkdb/add/')">新建目录</button>
 {% load tree_list %}

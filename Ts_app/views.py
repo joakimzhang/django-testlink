@@ -129,11 +129,12 @@ def rentview(request):
     return render(request, 'Ts_app/rent.html', {
         'form2': form2, 'rent_obj': rent_obj})
 
-def excelview(request):
-    test_suite_root = TestlinkDB.objects.filter(suite_name="AIrBee")
-    test_case_list = get_case_list(test_suite_root,"AirBee")
+def excelview(request,suite_id):
+    test_suite_root = TestlinkDB.objects.get(id=int(suite_id))
+    #test_suite_root = TestlinkDB.objects.filter(suite_name="AIrBee")
+    test_case_list = get_case_list(test_suite_root,test_suite_root.suite_name)
     #print test_case_list
-    #print test_suite_root
+    print test_suite_root
     print "aaaaa"
     return render(request, 'Ts_app/testlink.html')
 
@@ -173,60 +174,37 @@ def radioview(request):
 
 def get_case_list(root_node,suite_name):
     exl_obj = xlwt.Workbook()
-    #sheet_1 = exl_obj.add_sheet("AIrBee", cell_overwrite_ok=False)
-    #raw_0 = ["suite_name","case_name","test_step","test_except","test_result"]
-    #play_list = []
-    #for j in range(5):
-        #sheet_1.write(0,j,raw_0[j])
     num = 1
-    for i in root_node:
-        #print i.type_name()
-        #if str(i) == "TestlinkDB":
-        if i.type_name() == "TestlinkDB":
-            sheet_1 = exl_obj.add_sheet("AIrBee", cell_overwrite_ok=False)
-            raw_0 = ["suite_name","case_name","test_step","test_except","test_result"]
-            #play_list = []
-            for j in range(5):
-                sheet_1.write(0,j,raw_0[j])
-            #print "suit"
-            #play_list.append((i.suite_name,i.id,0))
-            print i.suite_name
-            sheet_1.write(num,0,i.suite_name)
+    #for i in root_node:
+    #    if i.type_name() == "TestlinkDB":
+    i = root_node
+    sheet_1 = exl_obj.add_sheet(suite_name, cell_overwrite_ok=False)
+    raw_0 = ["suite_name","case_name","test_step","test_except","test_result"]
+    for j in range(5):
+        sheet_1.write(0,j,raw_0[j])
+    print i.suite_name
+    sheet_1.write(num,0,i.suite_name)
+    num = num + 1
+    # 目录的case子节点
+    child_case = i.children_case.all()
+    for l in child_case:
+        sheet_1.write(num,1,l.case_name)
+        sheet_1.write(num,2,l.case_step)
+        sheet_1.write(num,3,l.case_except)
+        #sheet_1.write(num,4,l.case)
+        num = num + 1
+        
+    # 目录的目录子节点
+    children = i.children.all()
+    for k in children:
+        sheet_1.write(num,0,k.suite_name)
+        num = num + 1
+        for l in k.children_case.all():
+            sheet_1.write(num,1,l.case_name)
+            sheet_1.write(num,2,l.case_step)
+            sheet_1.write(num,3,l.case_except)
+            #sheet_1.write(num,4,l.case)
             num = num + 1
-            # 目录的目录子节点
-            child_case = i.children_case.all()
-            # 目录的case子节点
-            children = i.children.all()
-            for k in children:
-                sheet_1.write(num,0,k.suite_name)
-                num = num + 1
-                for l in k.children_case.all():
-                    sheet_1.write(num,1,l.case_name)
-                    sheet_1.write(num,2,l.case_step)
-                    sheet_1.write(num,3,l.case_except)
-                    #sheet_1.write(num,4,l.case)
-                    num = num + 1
-            #if len(child_case) > 0 and len(children) > 0:
-            # 目录子节点和case子节点都加入列表
-            #play_list.append(
-            #    get_suite_list(children,build_id)+get_suite_list(child_case,build_id))
-            #get_case_list(children,suite_name)
-            #get_case_list(child_case,suite_name)
-            #elif len(children) > 0:
-            #    play_list.append(get_suite_list(children))
-            #elif len(child_case) > 0:
-            #    play_list.append(get_suite_list(child_case))
-        # 当是case的时候，把case加入list
-        #elif str(i) == "TestlinkCase":
-        if i.type_name() == "TestlinkCase":
-            #play_list.append((i.case_name,i.id,1,_test_result,build_id))
-            sheet_1.write(num,1,i.case_name)
-            print i.case_name
-
-            #print "case"
-        #num = num + 1
-        #print "!!",num,"!!"
-    #print play_list
     exl_obj.save("/var/www/public_html/test_case.xls")
     #return play_list
 

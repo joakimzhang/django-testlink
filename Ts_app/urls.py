@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^editsuite/', views.edit_suite_view),
     url(r'^ajax_list/', views.ajaxview),
     url(r'^ajax_dic/', views.ajaxdicview),
-    url(r'^create_excel/', views.excelview),
+    url(r'^create_excel/(\d+)$', views.excelview),
     url(r'^testcase/(?P<article_id>\d+)/comment/$', views.CommentPostView.as_view(), name='comment'),
     ]
