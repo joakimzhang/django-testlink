@@ -209,9 +209,10 @@ def get_case_list(root_node,suite_name):
     #return play_list
 
 def get_suite_list(root_node,build_id):
+    print "get_suite_list"
     play_list = []
     for i in root_node:
-        print i.type_name()
+        #print i.type_name()
         #if str(i) == "TestlinkDB":
         if i.type_name() == "TestlinkDB":
             #print "suit"
@@ -241,6 +242,40 @@ def get_suite_list(root_node,build_id):
             #print "case"
     #print play_list
     return play_list
+def get_result_list(root_node,build_id):
+    print "get_result_list"
+    play_list = []
+    for i in root_node:
+        #print i.type_name()
+        if i.type_name() == "TestlinkDB":
+            # 目录的目录子节点
+            child_case = i.children_case.all()
+            # 目录的case子节点
+            children = i.children.all()
+            # 目录子节点和case子节点都加入列表
+            if children:
+                if get_result_list(children,build_id):
+                    play_list.append((i.suite_name,i.id,0))
+                    play_list.append(get_result_list(children,build_id))
+                else:
+                    pass
+            else:
+                if get_result_list(child_case,build_id):
+                    play_list.append((i.suite_name,i.id,0))
+                    play_list.append(get_result_list(child_case,build_id))
+                else:
+                    pass
+        if i.type_name() == "TestlinkCase":
+            j = i.case_report.filter(build_name=build_id).order_by('-id')
+            if j:
+                _test_result = j[0].test_result
+                play_list.append((i.case_name,i.id,1,_test_result,build_id))
+            else:
+                _test_result = ""
+    if len(play_list):
+        return play_list
+    else:
+        return None
 
 
 def get_build_suite_list(root_node):
@@ -311,6 +346,18 @@ def test_build_view(request, _build_id):
     #return render(request, 'Ts_app/testbuild.html',{'test_build_list': test_build_list})
     return render(request, 'Ts_app/testlink.html',
                   {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
+def test_result_view(request, _build_id):
+
+    test_build_list = TestlinkBuild.objects.filter(id=str(_build_id))
+    test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
+    #test_case_list = TestlinkCase.objects.all()
+    test_suite_list = get_result_list(test_suite_root,_build_id)
+    if request.method == 'POST':
+        pass
+    
+    #return render(request, 'Ts_app/testbuild.html',{'test_build_list': test_build_list})
+    return render(request, 'Ts_app/testresult.html',
+                  {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
 def test_case_view(request, case_num):
     test_case_list = TestlinkCase.objects.filter(id=int(case_num))
     comment_list = BlogComment.objects.filter(ariticle=int(case_num))
@@ -354,6 +401,7 @@ def testlinkview(request):
             print e
     test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
     test_suite_list = get_suite_list(test_suite_root,0)
+    #print test_suite_list
     test_suite_list_2 = TestlinkDB.objects.all()
     test_build_list = TestlinkBuild.objects.all()
 

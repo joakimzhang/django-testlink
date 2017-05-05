@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'hdcp_study.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_hdcp',
+        'NAME': 'django_testlink',
         'USER': 'root',
         'PASSWORD': 'Avl1108',
         'HOST': '127.0.0.1',
