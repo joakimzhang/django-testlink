@@ -30,8 +30,8 @@ class TestlinkReport(models.Model):
     
     test_case = models.ForeignKey('TestlinkCase',related_name='case_report',null=True)
     build_name = models.ForeignKey('TestlinkBuild', related_name='case_report',null=True)
-    result_choice = (('Pass', 'pass'), ('Fail', 'fail'))
-    test_result = models.CharField(max_length=100, choices=result_choice, default='Pass')
+    result_choice = (('Pass', 'pass'), ('Fail', 'fail'), ('Untest', 'untest'),('Block','block'))
+    test_result = models.CharField(max_length=100, choices=result_choice, default='Untest')
     result_description = models.TextField(max_length=4000, null=True, blank=True)
     result_pic = models.ImageField(upload_to='img', null=True,blank=True)
     result_video = models.FileField(upload_to='video',null=True,blank=True)

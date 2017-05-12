@@ -129,10 +129,10 @@ def rentview(request):
     return render(request, 'Ts_app/rent.html', {
         'form2': form2, 'rent_obj': rent_obj})
 
-def excelview(request,suite_id):
+def excelview(request,suite_id,build_id):
     test_suite_root = TestlinkDB.objects.get(id=int(suite_id))
     #test_suite_root = TestlinkDB.objects.filter(suite_name="AIrBee")
-    test_case_list = get_case_list(test_suite_root,test_suite_root.suite_name)
+    test_case_list = get_case_list(test_suite_root,test_suite_root.suite_name,build_id)
     #print test_case_list
     print test_suite_root
     print "aaaaa"
@@ -172,7 +172,75 @@ def radioview(request):
             print "no find check box in request"
             print request.method
 
-def get_case_list(root_node,suite_name):
+def get_case_list(root_node,suite_name,build_id):
+    exl_obj = xlwt.Workbook()
+    num = 1
+    i = root_node
+    sheet_1 = exl_obj.add_sheet(suite_name, cell_overwrite_ok=False)
+    raw_0 = ["suite_name","case_name","test_step","test_except","test_result","result_description"]
+    for j in range(6):
+        sheet_1.write(0,j,raw_0[j])
+    print i.suite_name
+    sheet_1.write(num,0,i.suite_name)
+    num = num + 1
+    # 目录的case子节点
+    child_case = i.children_case.all()
+    for l in child_case:
+        #sheet_1.write(num,1,l.case_name)
+        #sheet_1.write(num,2,l.case_step)
+        #sheet_1.write(num,3,l.case_except)
+        if int(build_id):
+            m = l.case_report.filter(build_name=build_id).order_by('-id')
+            if m:
+                _test_result = m[0].test_result
+                _result_description = m[0].result_description
+                sheet_1.write(num,4,_test_result)
+                sheet_1.write(num,5,_result_description)
+                if _test_result:
+                    sheet_1.write(num,1,l.case_name)
+                    sheet_1.write(num,2,l.case_step)
+                    sheet_1.write(num,3,l.case_except)
+                    #sheet_1.write(num,4,l.case)
+                    num = num + 1
+        else:
+            sheet_1.write(num,1,l.case_name)
+            sheet_1.write(num,2,l.case_step)
+            sheet_1.write(num,3,l.case_except)
+            #sheet_1.write(num,4,l.case)
+            num = num + 1
+        
+    # 目录的目录子节点
+    children = i.children.all()
+    for k in children:
+        sheet_1.write(num,0,k.suite_name)
+        num = num + 1
+        for l in k.children_case.all():
+            #sheet_1.write(num,1,l.case_name)
+            #sheet_1.write(num,2,l.case_step)
+            #sheet_1.write(num,3,l.case_except)
+            if int(build_id):
+                m = l.case_report.filter(build_name=build_id).order_by('-id')
+                if m:
+                    _test_result = m[0].test_result
+                    _result_description = m[0].result_description
+                    sheet_1.write(num,4,_test_result)
+                    sheet_1.write(num,5,_result_description)
+                    if _test_result:
+                        sheet_1.write(num,1,l.case_name)
+                        sheet_1.write(num,2,l.case_step)
+                        sheet_1.write(num,3,l.case_except)
+                        num = num + 1
+            else:
+                sheet_1.write(num,1,l.case_name)
+                sheet_1.write(num,2,l.case_step)
+                sheet_1.write(num,3,l.case_except)
+                #sheet_1.write(num,4,l.case)
+                num = num + 1
+    exl_obj.save("/var/www/public_html/test_case.xls")
+    #return play_list
+
+#excel生成
+def get_case_list_bak(root_node,suite_name):
     exl_obj = xlwt.Workbook()
     num = 1
     #for i in root_node:
@@ -207,16 +275,16 @@ def get_case_list(root_node,suite_name):
             num = num + 1
     exl_obj.save("/var/www/public_html/test_case.xls")
     #return play_list
-
+#测试报告界面
 def get_suite_list(root_node,build_id):
-    print "get_suite_list"
+    #print "get_suite_list"
     play_list = []
     for i in root_node:
         #print i.type_name()
         #if str(i) == "TestlinkDB":
         if i.type_name() == "TestlinkDB":
             #print "suit"
-            play_list.append((i.suite_name,i.id,0))
+            play_list.append((i.suite_name,i.id,0,build_id))
             # 目录的目录子节点
             child_case = i.children_case.all()
             # 目录的case子节点
@@ -240,8 +308,9 @@ def get_suite_list(root_node,build_id):
             play_list.append((i.case_name,i.id,1,_test_result,build_id))
 
             #print "case"
-    #print play_list
+    print play_list
     return play_list
+#测试结果,只包括有结果的项
 def get_result_list(root_node,build_id):
     print "get_result_list"
     play_list = []
@@ -255,13 +324,13 @@ def get_result_list(root_node,build_id):
             # 目录子节点和case子节点都加入列表
             if children:
                 if get_result_list(children,build_id):
-                    play_list.append((i.suite_name,i.id,0))
+                    play_list.append((i.suite_name,i.id,0,build_id))
                     play_list.append(get_result_list(children,build_id))
                 else:
                     pass
             else:
                 if get_result_list(child_case,build_id):
-                    play_list.append((i.suite_name,i.id,0))
+                    play_list.append((i.suite_name,i.id,0,build_id))
                     play_list.append(get_result_list(child_case,build_id))
                 else:
                     pass
@@ -272,6 +341,7 @@ def get_result_list(root_node,build_id):
                 play_list.append((i.case_name,i.id,1,_test_result,build_id))
             else:
                 _test_result = ""
+    print play_list
     if len(play_list):
         return play_list
     else:
@@ -285,7 +355,7 @@ def get_build_suite_list(root_node):
         #if str(i) == "TestlinkDB":
         if i.type_name() == "TestlinkDB":
             #print "suit"
-            play_list.append((i.suite_name,i.id,0))
+            play_list.append((i.suite_name,i.id,0,build_id))
             # 目录的目录子节点
             child_case = i.children_case.all()
             # 目录的case子节点
@@ -333,7 +403,7 @@ def edit_suite_view(request):
         #if "add_case" in request.post:
         return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
     return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
-
+#测试报告页面
 def test_build_view(request, _build_id):
 
     test_build_list = TestlinkBuild.objects.filter(id=str(_build_id))
@@ -346,23 +416,34 @@ def test_build_view(request, _build_id):
     #return render(request, 'Ts_app/testbuild.html',{'test_build_list': test_build_list})
     return render(request, 'Ts_app/testlink.html',
                   {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
+#已完成报告页面
 def test_result_view(request, _build_id):
 
     test_build_list = TestlinkBuild.objects.filter(id=str(_build_id))
     test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
     #test_case_list = TestlinkCase.objects.all()
     test_suite_list = get_result_list(test_suite_root,_build_id)
+    print test_suite_list
     if request.method == 'POST':
         pass
     
     #return render(request, 'Ts_app/testbuild.html',{'test_build_list': test_build_list})
     return render(request, 'Ts_app/testresult.html',
                   {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
+#测试目录的已完成
+def test_result_suite_view(request, _build_id, suite_number):
+    print "test_result_suite_view"
+    test_build_list = TestlinkBuild.objects.filter(id=str(_build_id))
+    test_suite_root = TestlinkDB.objects.filter(id=int(suite_number))
+    test_suite_list = get_result_list(test_suite_root,_build_id)
+    return render(request, 'Ts_app/resultsuite.html',
+                  {'suite_id':int(suite_number),'build_id':int(_build_id),'test_suite_list':test_suite_list,'test_build_list': test_build_list})
 def test_case_view(request, case_num):
     test_case_list = TestlinkCase.objects.filter(id=int(case_num))
     comment_list = BlogComment.objects.filter(ariticle=int(case_num))
     form = BlogCommentForm()
     return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list,'comment_list':comment_list,'form':form})
+#测试目录页面
 def test_suite_view(request, suite_num):
     test_suite_queryset = TestlinkDB.objects.filter(id=int(suite_num))
     test_suite_list = get_suite_list(test_suite_queryset, 0)

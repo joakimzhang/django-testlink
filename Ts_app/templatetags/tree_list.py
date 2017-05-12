@@ -39,7 +39,13 @@ def li_tree(value):
                     indent, list_formatter(children, tabs + 1), indent, indent)
                 #print item
                 #output.append('%s<li><font color="black"><a>%s</a>%s</li>' % (indent, item[0], sublist))
-                output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent,item[1], item[0], sublist))
+
+                #output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent,item[1], item[0], sublist))
+                if item[3]==0:
+                    #pass
+                    output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
+                else:
+                    output.append('%s<li class="testlink_suite"><a href="/testbuild/%s/suite/%s">%s</a>%s</li>' % (indent,item[3], item[1], item[0], sublist))    
             else:
                 if item[2]==1:
                     #output.append('%s<div class="testlink_case"><a href="/testcase/%s">%s</a>%s</div>' % (indent, item[1], item[0], sublist))
@@ -48,6 +54,10 @@ def li_tree(value):
                             color = '<font style="font-weight:bold;" color="green">Pass</font>'
                         elif item[3] == "Fail":
                             color = '<font style="font-weight:bold;" color="red">Fail</font>'      
+                        elif item[3] == "Untest":
+                            color = '<font style="font-weight:bold;" color="grey">Untested</font>'      
+                        elif item[3] == "Block":
+                            color = '<font style="font-weight:bold;" color="brown">Block</font>'      
                         else:
                             color = ""                     
                         output.append('%s<div class="testlink_case"><a href="/testreport/%s">%s</a>  %s %s</div>' % (indent, item[1],item[0], color, sublist))
@@ -56,8 +66,14 @@ def li_tree(value):
                         output.append('%s<div class="testlink_case"><a href="/testcase/%s">%s</a>%s</div>' % (indent, item[1], item[0], sublist))       
                            
                 else:
+                    print "item3:",tem[3]
                     #output.append('%s<li class="testlink_suite"><a href="/admin/Ts_app/testlinkdb/%s/change/">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
-                    output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
+                    if item[3]==0:
+                        #pass
+                        output.append('%s<li class="testlink_suite"><a href="/testsuite/%s">%s</a>%s</li>' % (indent, item[1], item[0], sublist))    
+                    else:
+                        output.append('%s<li class="testlink_suite"><a href="/testbuild/%s/suite/%s">%s</a>%s</li>' % (indent,item[3], item[1], item[0], sublist))    
+
 
         return '\n'.join(output)
     return mark_safe(list_formatter(value))

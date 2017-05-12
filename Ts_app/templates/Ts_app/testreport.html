@@ -47,6 +47,10 @@
 		<font style="font-weight:bold;" color="green">
 		{% elif j.test_result == "Fail" %}
 		<font style="font-weight:bold;" color="red">
+		{% elif j.test_result == "Untest" %}
+		<font style="font-weight:bold;" color="grey">
+		{% elif j.test_result == "Block" %}
+		<font style="font-weight:bold;" color="brown">
 		{% endif %}
 		{{ j.test_result }}<br>
 		</font>
