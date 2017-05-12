@@ -1,0 +1,64 @@
+<!--<script src="http://code.jquery.com/jquery-latest.js">-->
+<script src="/media/js/jquery-latest.js">
+</script>
+
+
+<script>
+     $(document).ready(function () {
+            //鍔犺浇鏃堕殣钘忓瓙鑿滃崟
+            //$('li ul').hide();
+            //$('.testlink_case').hide();
+            //涓嶅寘鍚瓙鑿滃崟鏃堕紶鏍囨寚閽堝拰椤圭洰鍥炬爣
+            $('li:not(:has(ul))')
+           .css({ 'cursor': 'default', 'list-style-image': 'none' });
+            //鍖呭惈瀛愯彍鍗曟椂榧犳爣鎸囬拡鍜岄」鐩浘鏍�
+            $('li:has(ul)')
+            .css({ 'cursor': 'pointer', 'list-style-image': 'url(/media/img/eg_arrow.gif)' });
+            //鍗曞嚮鍚瓙鑿滃崟鐨勯」
+            $('li:has(ul)').click(function (event) {
+                if (this == event.target) {
+                    if ($(this).children().is(':hidden')) {
+                        $(this)
+                    .css('list-style-image', 'url(/media/img/eg_arrow.gif)')
+                    .children().show();
+                    }
+                    else {
+                        $(this)
+                 .css('list-style-image', 'url(/media/img/eg_arrow.gif)')
+                 .children("ul").hide();
+                    }
+                }
+            })
+        })
+</script>
+<div>
+<a style='margin-right:20px;color:blue;font-size:20px' href="/testlink/">回首页</a>
+{% for i in test_build_list %}
+<button onclick="window.location.href=('/testbuild/{{ i.id }}')">编辑结果</button>
+<button onclick="window.location.href=('/create_excel/{{suite_id}}/{{build_id}}')">生成excel</button>
+
+</a>
+<br>
+{% endfor %}<br>
+</div>
+{% load tree_list %}
+
+{{ test_suite_list|li_tree }}
+<br>
+{% autoescape off %}
+
+
+{% endautoescape %}
+
+<br>
+<br>
+<br>
+<br>
+<a>测试报告</a><br>
+{% for i in test_build_list %}
+<a href="/testbuild/{{ i.id }}">
+{{ i.build_name }}
+</a><br>
+{% endfor %}
+
+
